@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Pancake {
+public class PancakeSort {
 	public static Map<String,List<String>> map = new LinkedHashMap<String,List<String>>();
 	public static final String result = "1W2W3W4W";
 	public static List<List<String>> values = new ArrayList<List<String>>();
@@ -222,80 +222,8 @@ public class Pancake {
 			{
 				break;
 			}
-			
 	}
-		searchMap(map,str);
-		printMap(map);
-	
-	
 }
-	
-
-	private static void printMap(Map<String, List<String>> map2) {
-		System.out.println(map2);
-		
-	}
-	private static void searchMap(Map<String, List<String>> map2,String str) {
-		
-		String key = null;
-		for(Entry<String, List<String>>  entry: map2.entrySet())
-		{
-			List<String> list = entry.getValue();
-			if(list.contains("1W2W3W4W"))
-			{
-				 key = entry.getKey();
-				System.out.println(key);
-				List<String> al = new ArrayList<String>();
-				al.add(key);
-				values.add(al);
-				
-			}
-			
-		}
-	
-	
-	String result = searchMapValues(map2,key,str);
-	if(result == str)
-		 return;
-	else
-		searchMapValues(map2,result,str);
-
-
-		
-	}
-	
-	private static String searchMapValues(Map<String, List<String>> map2, String key, String str) {
-		
-		
-		String iniKey = null;	
-		List<String> al = new ArrayList<String>();
-		for(Entry<String,List<String>> entry: map2.entrySet())
-		{
-			List<String> list = entry.getValue();
-			
-			if(list.contains(key))
-			{
-				iniKey = entry.getKey();
-				if(al.size() == 0)
-				{
-				
-				al.add(iniKey);
-			
-				}
-				if(!values.contains(al))
-				{
-				values.add(al);
-				}
-			}
-		
-	}
-		return iniKey;
-		
-	
-		
-		
-		
-	}
 	public static void main(String[] args)
 	{
 		System.out.print("Enter your String");
@@ -303,8 +231,7 @@ public class Pancake {
 		String str = sc.next();
 		int len = str.length();
 		BFS(str,len);
-		System.out.print(values);
-		//String str1 = oneFlip(str,len);
+		System.out.print(values);//String str1 = oneFlip(str,len);
 		//String str2 = twoFlip(str,len);
 		//String str3 = threeFlip(str,len);
 		//String str4 = fourFlip(str,len);
