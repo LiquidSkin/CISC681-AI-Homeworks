@@ -2,10 +2,10 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class Pancake {
-	public static Map<String,List<String>> map = new LinkedHashMap<String,List<String>>();
-	public static final String result = "1W2W3W4W";
-	public static List<List<String>> values = new ArrayList<List<String>>();
 	
+	public static final String result = "1W2W3W4W";
+	public static List<List<String>> al = new ArrayList<List<String>>();
+	public static List<String> alList = new ArrayList<String>();
 	
 	public static String oneFlip(String str1, int len)
 	{
@@ -157,20 +157,14 @@ public class Pancake {
 			
 			
 			String str1 = oneFlip(string,len);
-			if(str1.equals(str))
-			{
-				continue;
-			}
+			
 			queue.add(str1);
 			
 			System.out.println(string + " " + str1);
 			
 			
 			String str2 = twoFlip(string,len);
-			if(str2.equals(str1))
-			{
-				continue;
-			}
+			
 		
 				
 			queue.add(str2);
@@ -179,10 +173,7 @@ public class Pancake {
 			
 			
 			String str3 = threeFlip(string,len);
-			if(str3.equals(str1))
-			{
-				continue;
-			}
+			
 	
 			queue.add(str3);
 			
@@ -191,111 +182,130 @@ public class Pancake {
 		
 	
 			String str4 = fourFlip(string,len);
-			if(str4.equals(str1))
-			{
-				continue;
-			}
+			
 		
 			queue.add(str4);
 		
 			System.out.println(string + " " + str4);
-			if(!map.containsKey(string))
-			{
-				List<String> al = new ArrayList<String>();
-				al.add(str1);
-				al.add(str2);
-				al.add(str3);
-				al.add(str4);
-				map.put(string,al);
-			}
-			else
-			{
-				List<String>al = map.get(string);
-				al.add(str1);
-				al.add(str2);
-				al.add(str3);
-				al.add(str4);
-				map.put(string,al);
-			}
+			
+			   List<String> list = new ArrayList<String>();
+			    list.add(string);
+			    list.add(str1);
+			    list.add(str2);
+			    list.add(str3);
+			    list.add(str4);
+			    al.add(list);
 			
 		    if(str4.equals(result) || str3.equals(result) || str2.equals(result) || str1.equals(result))
 			{
 				break;
 			}
-			
-	}
-		searchMap(map,str);
-		printMap(map);
-	
-	
-}
-	
-
-	private static void printMap(Map<String, List<String>> map2) {
-		System.out.println(map2);
+		 }
+		List<String> li = al.get(al.size() - 1);
+		String element = li.get(0);
+		System.out.println("Printing the last element of the ArrayList and the element " + li + "  " + element);
+		alList.add(element);
+		String finalEle = searchArrayList(al,element);
+		System.out.println("the next initial element is" + finalEle);
+		alList.add(finalEle);
 		
-	}
-	private static void searchMap(Map<String, List<String>> map2,String str) {
-		
-		String key = null;
-		for(Entry<String, List<String>>  entry: map2.entrySet())
+		if(finalEle.equals(str))
 		{
-			List<String> list = entry.getValue();
-			if(list.contains("1W2W3W4W"))
-			{
-				 key = entry.getKey();
-				System.out.println(key);
-				List<String> al = new ArrayList<String>();
-				al.add(key);
-				values.add(al);
-				
-			}
-			
+			return;
 		}
-	
-	
-	String result = searchMapValues(map2,key,str);
-	if(result == str)
-		 return;
-	else
-		searchMapValues(map2,result,str);
-
-
-		
-	}
-	
-	private static String searchMapValues(Map<String, List<String>> map2, String key, String str) {
-		
-		
-		String iniKey = null;	
-		List<String> al = new ArrayList<String>();
-		for(Entry<String,List<String>> entry: map2.entrySet())
+		String nextEle = searchArrayListIndex(al,finalEle);
+		System.out.println("the next  Element is " + nextEle);
+		alList.add(nextEle);
+		String nextnextEle = searchArrayList(al,nextEle);
+		System.out.println("the next next Element is" + nextnextEle);
+		alList.add(nextnextEle);
+		if(nextnextEle.equals(str))
 		{
-			List<String> list = entry.getValue();
-			
-			if(list.contains(key))
-			{
-				iniKey = entry.getKey();
-				if(al.size() == 0)
-				{
-				
-				al.add(iniKey);
-			
-				}
-				if(!values.contains(al))
-				{
-				values.add(al);
-				}
-			}
+			return;
+		}
+		String varEle = searchArrayListIndex(al,nextnextEle);
+		System.out.println("the next variable element is" + varEle);
+		alList.add(varEle);
+		String varvarEle = searchArrayList(al,varEle);
+		System.out.println("the var var Element is" + varvarEle);
+		alList.add(varvarEle);
+		if(varvarEle.equals(str))
+		{
+			return;
+		}
+		String varElement = searchArrayListIndex(al,varvarEle);
+		System.out.println("the next variable variable element is" + varElement);
+		alList.add(varElement);
+		String fooElement =  searchArrayList(al,varElement);
+		System.out.println("the FooElement is" + fooElement);
+		alList.add(fooElement);
+		if(fooElement.equals(str))
+		{
+			return;
+		}
+		String foofooElement = searchArrayListIndex(al,fooElement);
+		alList.add(foofooElement);
+		System.out.println("the FooFooElement is" + foofooElement);
+		String charElement = searchArrayList(al,foofooElement);
+		System.out.print("The Char Element is" + charElement);
+		alList.add(charElement);
+		if(charElement.equals(str))
+		{
+			return;
+		}
+		String characterElement = searchArrayListIndex(al,charElement);
+		alList.add(characterElement);
+		System.out.print("the Character Element is" + characterElement);
 		
-	}
-		return iniKey;
+		
 		
 	
 		
 		
+}
+	public static String searchArrayListIndex(List<List<String>>list, String key) // DO NOT GET THE FIRST ARRAYLIST
+	{
+		String val = null;
+		for(int i = list.size()-1; i>=0; i--)
+		{
+			List<String> al = list.get(i);
+			if((al.contains(key)) && (al.get(0) != key))
+			{
+			  val = al.get(0);	
+			}
+		}
+		return val;
 		
 	}
+	public static String searchArrayList(List<List<String>> list, String key) // GET FIRSTINDEX
+	{
+		String val = null;
+		for(int i = list.size()-1; i>=0; i--)
+		{
+			List<String> al = list.get(i);
+			if(al.contains(key))
+			{
+				val = al.get(0);
+			}
+		}
+		return val;
+	}
+	
+
+	
+     
+     
+    
+    
+     
+
+	
+	
+		
+		
+	
+		
+		
 	public static void main(String[] args)
 	{
 		System.out.print("Enter your String");
@@ -303,12 +313,8 @@ public class Pancake {
 		String str = sc.next();
 		int len = str.length();
 		BFS(str,len);
-		System.out.print(values);
-		//String str1 = oneFlip(str,len);
-		//String str2 = twoFlip(str,len);
-		//String str3 = threeFlip(str,len);
-		//String str4 = fourFlip(str,len);
-		//System.out.print(str1 + " " + str2 + " " + str3 + " " + str4);
+		System.out.print(alList);
+	
 	}
 	
 
