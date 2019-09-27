@@ -2,6 +2,9 @@ import java.util.*;
 public class AStarSearch {
 	public static final String result = "1W2W3W4W";
 	public static List<List<String>> parentList = new ArrayList<List<String>>();
+	public static List<String> allList = new ArrayList<String>();
+	public static List<List<Object>> everyList = new ArrayList<List<Object>>();
+	
 	
 	public static String oneFlip(String str1, int len) // helper function to make one flip
 	{
@@ -196,7 +199,12 @@ public class AStarSearch {
        
 	}*/
 	
-	public static void AStarAlgorithm(String str, int len) {
+	public static void AStarAlgorithm(String str, int len)  {
+		if(str.equals(result))
+		{
+			System.out.println("The String is already in Place");
+			return;
+		}
 		Queue<String> queue = new LinkedList<String>();
 		List<List<Object>> finalList = new ArrayList<List<Object>>();
 	      int gCount = 0;
@@ -210,6 +218,7 @@ public class AStarSearch {
 			  li.add(h);
 			  li.add(str1);
 			  finalList.add(li);
+			  everyList.add(li);
 		  }
 		  String str2 = twoFlip(str,len);
 		  gCount++;
@@ -221,6 +230,7 @@ public class AStarSearch {
 			  li.add(h1);
 			  li.add(str2);
 			  finalList.add(li);
+			  everyList.add(li);
 		  }
 		  String str3 = threeFlip(str,len);
 		  gCount++;
@@ -232,6 +242,7 @@ public class AStarSearch {
 			  li.add(h2);
 			  li.add(str3);
 			  finalList.add(li); 
+			  everyList.add(li);
 		  }
 		  String str4 = fourFlip(str,len);
 		  gCount++;
@@ -243,6 +254,7 @@ public class AStarSearch {
 			  li.add(h3);
 			  li.add(str4);
 			  finalList.add(li); 
+			  everyList.add(li);
 		  }
 		  
 		  List<String> list = new ArrayList<String>();
@@ -252,6 +264,7 @@ public class AStarSearch {
 		  list.add(str3);
 		  list.add(str4);
 		  parentList.add(list);
+		  
 		  queue.add(str1);
 		  queue.add(str2);
 		  queue.add(str3);
@@ -289,6 +302,7 @@ public class AStarSearch {
         		  li.add(a_1);
         		  li.add(oneString);
         		  finalList.add(li);
+        		  everyList.add(li);
         		  queue.add(oneString);
         	  }
         	  String secString = twoFlip(element, element.length());
@@ -301,6 +315,7 @@ public class AStarSearch {
         		  li.add(a_2);
         		  li.add(secString);
         		  finalList.add(li);
+        		  everyList.add(li);
         		  queue.add(secString);
         	  }
         	  String threeString = threeFlip(element, element.length());
@@ -313,6 +328,7 @@ public class AStarSearch {
         		  li.add(a_3);
         		  li.add(threeString);
         		  finalList.add(li);
+        		  everyList.add(li);
         		  queue.add(threeString);
         	  }
         	  String fourString = fourFlip(element, element.length());
@@ -325,6 +341,7 @@ public class AStarSearch {
         		  li.add(a_4);
         		  li.add(fourString);
         		  finalList.add(li);
+        		  everyList.add(li);
         		  queue.add(fourString);
         	  }
         	 
@@ -335,19 +352,97 @@ public class AStarSearch {
         	  al.add(threeString);
         	  al.add(fourString);
         	  parentList.add(al);
+        	  
         	  if(element.equals(result) || oneString.equals(result) || secString.equals(result) || threeString.equals(result) || fourString.equals(result))
         	  {
         		  break;
         	  }
         	  
           }
-		 
-		 
-		 
-		  
+          System.out.println("The final parent List is" + " " + parentList);
+            BacktrackList(parentList,str);
+		
 	}
 	
-    public static String TieBreaker(List<List<Object>> finalList, Queue<String> queue) {
+    public static void BacktrackList(List<List<String>> al,String str) {
+    	List<String> alList = al.get(al.size() - 1); 
+		String element = alList.get(0);
+		System.out.println("The parent element of the result is" + " " + element);
+		 allList.add(element);
+		String finalEle = searchArrayList(al,element);
+		
+		allList.add(finalEle);
+		
+		if(finalEle.equals(str))
+		{
+			return;
+		}
+		String nextEle = searchArrayListIndex(al,finalEle);
+		
+		allList.add(nextEle);
+		String nextnextEle = searchArrayList(al,nextEle);
+		
+		allList.add(nextnextEle);
+		if(nextnextEle.equals(str))
+		{
+			return;
+		}
+		String varEle = searchArrayListIndex(al,nextnextEle);
+		allList.add(varEle);
+		String varvarEle = searchArrayList(al,varEle);
+	
+		allList.add(varvarEle);
+		if(varvarEle.equals(str))
+		{
+			return;
+		}
+		String varElement = searchArrayListIndex(al,varvarEle);
+		allList.add(varElement);
+		String fooElement =  searchArrayList(al,varElement);
+		allList.add(fooElement);
+		if(fooElement.equals(str))
+		{
+			return;
+		}
+		String foofooElement = searchArrayListIndex(al,fooElement);
+		allList.add(foofooElement);
+		String charElement = searchArrayList(al,foofooElement);
+		allList.add(charElement);
+		if(charElement.equals(str))
+		{
+			return;
+		}
+		String characterElement = searchArrayListIndex(al,charElement);
+		allList.add(characterElement); 
+	}
+    public static String searchArrayListIndex(List<List<String>>list, String key) // This function is to find the parent when it occurs as a child of a root.
+	{
+		String val = null;
+		for(int i = list.size()-1; i>=0; i--)
+		{
+			List<String> al = list.get(i);
+			if((al.contains(key)) && (al.get(0) != key))
+			{
+			  val = al.get(0);	
+			}
+		}
+		return val;
+		
+	}
+	public static String searchArrayList(List<List<String>> list, String key) // This function is used to find the parent of a child node.
+	{
+		String val = null;
+		for(int i = list.size()-1; i>=0; i--)
+		{
+			List<String> al = list.get(i);
+			if(al.contains(key))
+			{
+				val = al.get(0);
+			}
+		}
+		return val;
+	}
+	public static String TieBreaker(List<List<Object>> finalList, Queue<String> queue) {
 	  
     	int min = Integer.MAX_VALUE;
     	String result = null;
@@ -408,14 +503,19 @@ public class AStarSearch {
     	}
 		return result;
 	}
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
 		Scanner sc = new Scanner(System.in);
 		  System.out.println("Enter your string");
 		  String str = sc.next();
 		  int len = str.length();
 		  AStarAlgorithm(str,len);
-		  System.out.println("The final parent List is" + " " + parentList);
+		  Collections.reverse(allList);
+		  allList.add(result);
+		  System.out.println("The Path taken by the string is" + allList);
+		  System.out.println("The List containing g and h values are" + " " + everyList);
+		
+		  
 	}
 	
 

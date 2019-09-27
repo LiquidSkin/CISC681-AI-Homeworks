@@ -1,7 +1,7 @@
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Pancake {
+public class PancakeDummy {
 	
 	public static final String result = "1W2W3W4W";
 	public static List<List<String>> al = new ArrayList<List<String>>();
