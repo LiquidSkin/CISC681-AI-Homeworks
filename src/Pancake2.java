@@ -144,8 +144,9 @@ public class Pancake2 {
 	  queue.add(str);
 	  int gCount = 0;
 	  Random rn = new Random();
+	  Set<String> newSet = new HashSet<String>();
 	  
-	  while(!queue.isEmpty())
+	  while(!queue.isEmpty() && gCount <= 10)
 	  {
 		  int h1,h2,h3,h4=0;
 		  String varChar = queue.poll();
@@ -156,9 +157,11 @@ public class Pancake2 {
 		  gCount++;
 		  if(gCount > 0)
 		  {
+			  
 			  List<Object> al = new ArrayList<Object>();
 			  al.add(rn.nextInt(6) + 5);
 			  al.add(h1);
+			  
 			  al.add(str1);
 			  list.add(al);
 			  
@@ -220,7 +223,6 @@ public class Pancake2 {
 		  System.out.println("The orders are " + nextString + " ");
 		  System.out.println(reqList);
 		  System.out.println("The required List is" + flipList);
-		  
 		  queue.add(nextString);
 		  list.clear();
 		  
